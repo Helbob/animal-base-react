@@ -2,11 +2,17 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 import getCleanData from "./data";
+import Animals from "./conponments/Animals";
 const animals = getCleanData();
 
 function App() {
   const [filter, setFilter] = useState("");
   const [sort, setSort] = useState("name");
+
+  function sayHi(msg) {
+    console.log(msg);
+  }
+
   let filtered = animals;
   filtered.sort((a, b) => {
     if (a[sort] > b[sort]) {
@@ -64,18 +70,12 @@ function App() {
             <th>Type</th>
             <th>Age</th>
             <th>Description</th>
+            <th>Greet</th>
           </tr>
         </thead>
         <tbody>
           {filtered.map((ani) => {
-            return (
-              <tr>
-                <td>{ani.name}</td>
-                <td>{ani.type}</td>
-                <td>{ani.age}</td>
-                <td>{ani.description}</td>
-              </tr>
-            );
+            return <Animals {...ani} sayHi={sayHi} />;
           })}
         </tbody>
       </table>
